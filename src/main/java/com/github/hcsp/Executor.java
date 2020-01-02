@@ -55,6 +55,7 @@ public class Executor {
                         consumer.accept(future.get());
                     } catch (Exception e) {
                         exceptionInConsumerThread.set(e);
+                        break; //这里不应该break，消费者线程提前结束了，导致没有线程去消费队列中的东西，生产者一直卡在放不进去东西那里'
                     }
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
